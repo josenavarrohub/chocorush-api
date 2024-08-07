@@ -1,2 +1,2 @@
-PORT=80
-BASE_URL=https://chocorush-api.onrender.com/api
+PORT=443
+BASE_URL=https://chocorush-api.onrender.com
