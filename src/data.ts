@@ -1,0 +1,185 @@
+// Types
+import { MenuItem } from "./types";
+
+// Load environment variables from .env file
+import "./env";
+
+// Url
+const PORT = process.env.PORT;
+const BASE_URL = process.env.BASE_URL;
+
+// Data
+export const menu: MenuItem[] = [
+  {
+    id: 1,
+    name: "Classic Chocolate Cake",
+    unitPrice: 25,
+    imageUrl: `${BASE_URL}:${PORT}/images/classic-chocolate-cake.jpg`,
+    ingredients: ["chocolate", "flour", "sugar", "eggs", "butter"],
+    soldOut: false,
+  },
+  {
+    id: 2,
+    name: "Chocolate Mousse",
+    unitPrice: 8,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-mousse.jpg`,
+    ingredients: ["dark chocolate", "heavy cream", "eggs", "sugar"],
+    soldOut: false,
+  },
+  {
+    id: 3,
+    name: "Chocolate Truffles",
+    unitPrice: 12,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-truffles.jpg`,
+    ingredients: ["dark chocolate", "heavy cream", "butter", "cocoa powder"],
+    soldOut: true,
+  },
+  {
+    id: 4,
+    name: "Chocolate Brownies",
+    unitPrice: 15,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-brownies.jpg`,
+    ingredients: ["chocolate", "flour", "sugar", "eggs", "butter", "nuts"],
+    soldOut: false,
+  },
+  {
+    id: 5,
+    name: "Chocolate Chip Cookies",
+    unitPrice: 10,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-chip-cookies.jpg`,
+    ingredients: ["flour", "butter", "sugar", "eggs", "chocolate chips"],
+    soldOut: false,
+  },
+  {
+    id: 6,
+    name: "Chocolate Fondue",
+    unitPrice: 30,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-fondue.jpg`,
+    ingredients: [
+      "dark chocolate",
+      "milk chocolate",
+      "heavy cream",
+      "vanilla extract",
+    ],
+    soldOut: false,
+  },
+  {
+    id: 7,
+    name: "Chocolate Lava Cake",
+    unitPrice: 18,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-lava-cake.jpg`,
+    ingredients: ["dark chocolate", "butter", "eggs", "sugar", "flour"],
+    soldOut: false,
+  },
+  {
+    id: 8,
+    name: "Chocolate Ice Cream",
+    unitPrice: 6,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-ice-cream.jpg`,
+    ingredients: ["cream", "milk", "sugar", "cocoa powder", "eggs"],
+    soldOut: true,
+  },
+  {
+    id: 9,
+    name: "Chocolate Croissant",
+    unitPrice: 4,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-croissant.jpg`,
+    ingredients: ["flour", "butter", "chocolate", "sugar", "yeast"],
+    soldOut: false,
+  },
+  {
+    id: 10,
+    name: "Chocolate Cheesecake",
+    unitPrice: 28,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-cheesecake.jpg`,
+    ingredients: [
+      "cream cheese",
+      "chocolate",
+      "sugar",
+      "eggs",
+      "graham crackers",
+    ],
+    soldOut: false,
+  },
+  {
+    id: 11,
+    name: "Chocolate-Dipped Strawberries",
+    unitPrice: 20,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-dipped-strawberries.jpg`,
+    ingredients: ["strawberries", "dark chocolate", "white chocolate"],
+    soldOut: false,
+  },
+  {
+    id: 12,
+    name: "Chocolate Tiramisu",
+    unitPrice: 22,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-tiramisu.jpg`,
+    ingredients: [
+      "ladyfingers",
+      "mascarpone",
+      "coffee",
+      "cocoa powder",
+      "chocolate",
+    ],
+    soldOut: false,
+  },
+  {
+    id: 13,
+    name: "Chocolate Macarons",
+    unitPrice: 14,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-macarons.jpg`,
+    ingredients: [
+      "almond flour",
+      "powdered sugar",
+      "egg whites",
+      "chocolate ganache",
+    ],
+    soldOut: true,
+  },
+  {
+    id: 14,
+    name: "Chocolate Soufflé",
+    unitPrice: 16,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-souffle.jpg`,
+    ingredients: ["dark chocolate", "eggs", "sugar", "butter", "flour"],
+    soldOut: false,
+  },
+  {
+    id: 15,
+    name: "Chocolate Fudge",
+    unitPrice: 10,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-fudge.jpg`,
+    ingredients: [
+      "sugar",
+      "butter",
+      "heavy cream",
+      "dark chocolate",
+      "vanilla extract",
+    ],
+    soldOut: false,
+  },
+  {
+    id: 16,
+    name: "Chocolate Éclair",
+    unitPrice: 5,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-eclair.jpg`,
+    ingredients: ["choux pastry", "chocolate ganache", "pastry cream"],
+    soldOut: false,
+  },
+  {
+    id: 17,
+    name: "Chocolate Panna Cotta",
+    unitPrice: 9,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-panna-cotta.jpg`,
+    ingredients: ["heavy cream", "milk", "sugar", "gelatin", "cocoa powder"],
+    soldOut: false,
+  },
+  {
+    id: 18,
+    name: "Chocolate Crepes",
+    unitPrice: 12,
+    imageUrl: `${BASE_URL}:${PORT}/images/chocolate-crepes.jpg`,
+    ingredients: ["flour", "eggs", "milk", "cocoa powder", "Nutella"],
+    soldOut: false,
+  },
+];

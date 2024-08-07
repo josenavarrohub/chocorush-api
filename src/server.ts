@@ -1,66 +1,103 @@
-import express, { Request, Response } from 'express';
-import cors from 'cors';
+import express, { Request, Response } from "express";
+import cors from "cors";
+import path from "path";
+import { v4 as uuidv4 } from 'uuid';
 
+// Load environment variables from .env file
+import "./env";
+
+// Types
+import { Order, MenuItem } from "./types";
+
+// Data: Menu
+import { menu } from "./data";
+
+// Express app
+const PORT = process.env.PORT;
+const BASE_URL = process.env.BASE_URL;
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 app.use(cors());
 app.use(express.json());
 
-interface MenuItem {
-  id: string;
-  name: string;
-  price: number;
-}
-
-interface Order {
-  id: string;
-  items: MenuItem[];
-  totalPrice: number;
-  status: 'pending' | 'completed' | 'cancelled';
-}
-
-let menu: MenuItem[] = [
-  { id: '1', name: 'Chocolate Bar', price: 2.5 },
-  { id: '2', name: 'Chocolate Truffle', price: 1.5 },
-];
-
+// Data: Order
 let orders: Order[] = [];
 
-app.get('/api/menu', (req: Request, res: Response) => {
+// API Routes
+
+// Serve static files (including images)
+app.use("/images", express.static(path.join(__dirname, "images")));
+
+// Retrieve the menu
+app.get("/api/menu", (req: Request, res: Response) => {
   res.json({ data: menu });
 });
 
-app.get('/api/order/:id', (req: Request, res: Response) => {
-  const order = orders.find(o => o.id === req.params.id);
-  if (!order) {
-    return res.status(404).json({ error: `Couldn't find order #${req.params.id}` });
+// Retrieve a specific order
+app.get("/api/order/:id", (req: Request, res: Response) => {
+  const orderId = req.params.id;
+  const order = orders.find(o => o.id === orderId);
+  
+  if (order) {
+    res.json({ data: order });
+  } else {
+    res.status(404).json({ error: "Order not found" });
   }
-  res.json({ data: order });
 });
 
-app.post('/api/order', (req: Request, res: Response) => {
+// Create a new order
+app.post("/api/order", (req: Request, res: Response) => {
   const { items } = req.body;
-  const totalPrice = items.reduce((sum: number, item: MenuItem) => sum + item.price, 0);
+  
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ error: "Invalid order items" });
+  }
+
+  const orderItems: MenuItem[] = [];
+  let totalPrice = 0;
+
+  for (const itemId of items) {
+    const menuItem = menu.find(m => m.id === itemId);
+    if (menuItem && !menuItem.soldOut) {
+      orderItems.push(menuItem);
+      totalPrice += menuItem.unitPrice;
+    }
+  }
+
+  if (orderItems.length === 0) {
+    return res.status(400).json({ error: "No valid items in the order" });
+  }
+
   const newOrder: Order = {
-    id: Date.now().toString(),
-    items,
+    id: uuidv4(),
+    items: orderItems,
     totalPrice,
-    status: 'pending'
+    status: "pending"
   };
+
   orders.push(newOrder);
   res.status(201).json({ data: newOrder });
 });
 
-app.patch('/api/order/:id', (req: Request, res: Response) => {
-  const orderIndex = orders.findIndex(o => o.id === req.params.id);
+// Update an existing order
+app.patch("/api/order/:id", (req: Request, res: Response) => {
+  const orderId = req.params.id;
+  const { status } = req.body;
+
+  const orderIndex = orders.findIndex(o => o.id === orderId);
+  
   if (orderIndex === -1) {
-    return res.status(404).json({ error: `Couldn't find order #${req.params.id}` });
+    return res.status(404).json({ error: "Order not found" });
   }
-  orders[orderIndex] = { ...orders[orderIndex], ...req.body };
-  res.sendStatus(200);
+
+  if (status && ["pending", "completed", "cancelled"].includes(status)) {
+    orders[orderIndex].status = status;
+    res.json({ data: orders[orderIndex] });
+  } else {
+    res.status(400).json({ error: "Invalid status update" });
+  }
 });
 
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running at ${BASE_URL}:${PORT}`);
 });
